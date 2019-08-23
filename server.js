@@ -1,6 +1,7 @@
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var exphbs = require("express-handlebars");
 
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
@@ -15,6 +16,9 @@ var PORT = 3000;
 
 // Initialize Express
 var app = express();
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 // Configure middleware
 
@@ -71,7 +75,10 @@ app.get("/articles", function(req, res) {
   db.Article.find({})
     .then(function(dbArticle) {
       // If we were able to successfully find Articles, send them back to the client
-      res.json(dbArticle);
+      // res.json(dbArticle);
+
+      res.render("index", { dbArticle });
+
     })
     .catch(function(err) {
       // If an error occurred, send it to the client
@@ -87,7 +94,10 @@ app.get("/articles/:id", function(req, res) {
     .populate("note")
     .then(function(dbArticle) {
       // If we were able to successfully find an Article with the given id, send it back to the client
-      res.json(dbArticle);
+      // res.json(dbArticle);
+
+      res.render("index", { dbArticle });
+      
     })
     .catch(function(err) {
       // If an error occurred, send it to the client
@@ -107,7 +117,8 @@ app.post("/articles/:id", function(req, res) {
     })
     .then(function(dbArticle) {
       // If we were able to successfully update an Article, send it back to the client
-      res.json(dbArticle);
+      // res.json(dbArticle);
+      res.render("index", { dbArticle });
     })
     .catch(function(err) {
       // If an error occurred, send it to the client
