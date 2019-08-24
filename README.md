@@ -7,6 +7,7 @@ Once the site is scraped, the user has the option to attach a note to each artic
 Technologies used:
 - NodeJS
 - Express
+- Axios
 - Cheerio (for scraping)
 - Morgan (for logging)
 - Mongoose
