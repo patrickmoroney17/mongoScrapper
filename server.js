@@ -17,11 +17,11 @@ var PORT = 3000;
 // Initialize Express
 var app = express();
 
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+// app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+// app.set("view engine", "handlebars");
 
 // Configure middleware
-
+// app.set("views", "./views");
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 // Parse request body as JSON
@@ -75,9 +75,9 @@ app.get("/articles", function(req, res) {
   db.Article.find({})
     .then(function(dbArticle) {
       // If we were able to successfully find Articles, send them back to the client
-      // res.json(dbArticle);
+      res.json(dbArticle);
 
-      res.render("index", { dbArticle });
+      // res.render("index", { dbArticle });
 
     })
     .catch(function(err) {
@@ -94,9 +94,9 @@ app.get("/articles/:id", function(req, res) {
     .populate("note")
     .then(function(dbArticle) {
       // If we were able to successfully find an Article with the given id, send it back to the client
-      // res.json(dbArticle);
+      res.json(dbArticle);
 
-      res.render("index", { dbArticle });
+      // res.render("index", { dbArticle });
       
     })
     .catch(function(err) {
@@ -117,8 +117,8 @@ app.post("/articles/:id", function(req, res) {
     })
     .then(function(dbArticle) {
       // If we were able to successfully update an Article, send it back to the client
-      // res.json(dbArticle);
-      res.render("index", { dbArticle });
+      res.json(dbArticle);
+      // res.render("index", { dbArticle });
     })
     .catch(function(err) {
       // If an error occurred, send it to the client
